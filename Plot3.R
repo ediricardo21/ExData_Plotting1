@@ -1,0 +1,15 @@
+datagraphs <- read.csv("C:/Users/ediri/Desktop/Curso R/Johns Hopkins University/Exploratory Data Analysis/Week1/ExData_Plotting1/household_power_consumption.txt", sep=";")
+datagraphs$Datetime <- strptime(paste(datagraphs$Date,datagraphs$Time), format= "%d/%m/%Y %H:%M:%S")
+sub2 <- subset(datagraphs,datagraphs$Date=="1/2/2007" | datagraphs$Date =="2/2/2007")
+sub2$Global_active_power <- as.numeric(sub2$Global_active_power)
+
+sub2$Sub_metering_1 <- as.numeric(sub2$Sub_metering_1)
+sub2$Sub_metering_2 <- as.numeric(sub2$Sub_metering_2)
+sub2$Sub_metering_3 <- as.numeric(sub2$Sub_metering_3)
+
+png("plot3.png", width=500, height=500)
+plot(sub2$Datetime,sub2$Sub_metering_1, type = "l",xlab = "",ylab = "Energy sub metering")
+lines(sub2$Datetime,sub2$Sub_metering_2, type = "l",col="red")
+lines(sub2$Datetime,sub2$Sub_metering_3, type = "l",col="blue")
+legend("topright",pch = "___",col = c("black","red","blue"),legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+dev.off()
